@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khám Phá Vũ Trụ - Nhóm Thiên Văn</title>
+
+<style>
+
+/* NỀN GALAXY TOÀN TRANG */
+
+body{
+font-family:'Segoe UI',Arial,sans-serif;
+line-height:1.6;
+margin:0;
+color:#e0e0e0;
+overflow-x:hidden;
+
+background:
+linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),
+url("https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=2000&q=80");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+/* sao băng bay */
+
+.stars{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:0;
+overflow:hidden;
+}
+
+.star{
+position:absolute;
+width:3px;
+height:3px;
+background:white;
+border-radius:50%;
+box-shadow:0 0 6px white;
+opacity:0;
+animation:shootStar linear infinite;
+}
+
+/* sao băng bay góc 45° */
+@keyframes shootStar{
+0%{
+transform:translate(-200px,-200px) rotate(45deg);
+opacity:0;
+}
+10%{
+opacity:1;
+}
+90%{
+opacity:1;
+}
+100%{
+transform:translate(120vw,120vh) rotate(45deg);
+opacity:0;
+}
+}
+
+/* HEADER */
+
+
+
+header{
+background:rgba(0,0,0,0.45);
+padding:100px 20px;
+text-align:center;
+text-shadow:0 0 15px rgba(0,210,255,0.8);
+}
+
+header h1{
+font-size:3.5rem;
+margin:0;
+letter-spacing:5px;
+color:#00d2ff;
+}
+
+header p{
+font-size:1.3rem;
+color:#fff;
+}
+
+/* MAIN GLASSMORPHISM (hiệu ứng mờ )  */
+
+main{
+max-width:900px;
+margin:-50px auto 40px;
+padding:30px;
+
+background:rgba(20,25,45,0.45);
+
+backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
+
+box-shadow:0 0 40px rgba(0,210,255,0.25);
+
+border-radius:25px;
+border:1px solid rgba(255,255,255,0.15);
+
+position:relative;
+z-index:2;
+}
+
+/* TIÊU ĐỀ */
+
+h2{
+color:#00d2ff;
+border-left:6px solid #9d50bb;
+padding-left:15px;
+margin-top:40px;
+text-transform:uppercase;
+}
+/* CAROUSEL 3D */
+
+.gallery{
+position:relative;
+width:100%;
+height:400px;
+margin-top:30px;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.carousel{
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+width:100%;
+height:100%;
+}
+
+.carousel img{
+position:absolute;
+width:450px;
+height:260px;
+object-fit:cover;
+border-radius:12px;
+transition:all 0.6s ease;
+cursor:pointer;
+opacity:0;
+}
+
+/* ảnh giữa */
+
+.carousel img.center{
+transform:translateX(0) scale(1.3);
+opacity:1;
+z-index:5;
+box-shadow:0 0 25px rgba(0,210,255,0.7);
+}
+
+/* ảnh trái phải */
+
+.carousel img.left{
+transform:translateX(-220px) scale(0.9);
+opacity:0.7;
+z-index:4;
+}
+
+.carousel img.right{
+transform:translateX(220px) scale(0.9);
+opacity:0.7;
+z-index:4;
+}
+
+/* ảnh xa hơn */
+
+.carousel img.far-left{
+transform:translateX(-380px) scale(0.6);
+opacity:0.3;
+}
+
+.carousel img.far-right{
+transform:translateX(380px) scale(0.6);
+opacity:0.3;
+}
+
+/* nút */
+
+.carousel-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:40px;
+color:white;
+cursor:pointer;
+padding:12px 16px;
+user-select:none;
+
+z-index:100;   /* thêm dòng này */
+
+background:rgba(0,0,0,0.4);
+border-radius:50%;
+backdrop-filter:blur(5px);
+}
+
+.carousel-prev{left:10px;}
+.carousel-next{right:10px;}
+
+.carousel-btn:hover{
+color:#00d2ff;
+}
+
+/* FORM */
+
+form{
+background:rgba(255,255,255,0.05);
+padding:25px;
+border-radius:12px;
+border:1px solid #333;
+}
+
+input,textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+background:#1a1e2e;
+border:1px solid #444;
+color:white;
+border-radius:8px;
+box-sizing:border-box;
+}
+
+button{
+background:linear-gradient(45deg,#9d50bb,#6e48aa);
+color:white;
+border:none;
+padding:12px 30px;
+border-radius:25px;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:40px;
+color:#aaa;
+}
+
+/* LIGHTBOX */
+
+.lightbox{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+backdrop-filter:blur(10px);
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.lightbox img{
+max-width:85%;
+max-height:85%;
+border-radius:12px;
+box-shadow:0 0 40px rgba(0,210,255,0.6);
+transform:scale(0.8);
+transition:0.4s;
+}
+
+.lightbox.show img{
+transform:scale(1);
+}
+
+.nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:40px;
+color:white;
+cursor:pointer;
+padding:20px;
+user-select:none;
+}
+
+.prev{left:30px;}
+.next{right:30px;}
+
+.nav:hover{
+color:#00d2ff;
+}
+
+/* Ẩn checkbox */
+
+#musicToggle{
+display:none;
+}
+
+/* Nút nhạc */
+
+.musicBtn{
+
+position:fixed;
+bottom:25px;
+right:25px;
+
+width:60px;
+height:60px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:26px;
+color:white;
+
+cursor:pointer;
+user-select:none;
+
+/* glassmorphism ( hiệu ứng mở ảnh ) */
+
+background:rgba(255,255,255,0.08);
+backdrop-filter: blur(10px);
+border:1px solid rgba(255,255,255,0.2);
+
+box-shadow:0 0 15px rgba(0,210,255,0.4);
+
+transition:0.3s;
+}
+
+/* custom nút nhạc */
+
+.music-control{
+position:fixed;
+top:30px;
+right:20px;
+z-index:50;
+}
+
+.music-control button{
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.2);
+color:white;
+padding:15px 25px;
+border-radius:30px;
+cursor:pointer;
+font-weight:bold;
+transition:0.3s;
+}
+
+.music-control button:hover{
+background:rgba(255,255,255,0.2);
+transform:scale(1.2);
+}
+
+</style>
+</head>
+
+
+<audio id="bgMusic" loop>
+<source src="https://image2url.com/r2/default/audio/1772809776698-843ed0f1-0c02-4b41-8201-f064f35a3ec9.mp3" type="audio/mpeg">
+</audio>
+
+<body>
+
+
+</label>
+
+
+<div class="stars" id="stars"></div>
+
+<header>
+<h1>Tinh Không Huyền Bí</h1>
+<p>Hành trình khám phá những điều chưa biết</p>
+</header>
+
+
+
+<div class="music-control">
+<button onclick="toggleMusic()">🔊 On/Off</button>
+</div>
+
+<main>
+
+<section>
+<h2>Giới thiệu</h2>
+<p>Chào mừng bạn đến với trang báo điện tử của <strong>Nhóm Phi Hành Gia</strong>. Tại đây, chúng tôi tổng hợp những kiến thức thú vị về các vì sao, lỗ đen và vẻ đẹp vô tận của dải Ngân hà.</p>
+</section>
+
+<section>
+<h2>Bài viết nổi bật</h2>
+<article>
+<h3>Hệ Mặt Trời của chúng ta</h3>
+<p>Nằm trong dải Ngân hà, Hệ Mặt Trời bao gồm Mặt Trời và 8 hành tinh quay xung quanh nó. Mỗi hành tinh đều mang một vẻ đẹp và bí ẩn riêng biệt...</p>
+</article>
+</section>
+
+<section>
+<h2>Góc Ảnh (Ảnh: NASA) </h2>
+
+<div class="gallery">
+
+<span class="carousel-btn carousel-prev" onclick="move(-1)">❮</span>
+
+<div class="carousel" id="carousel">
+
+<img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1qVSScGsFnRtnqbR6YGLJ2PPUYORfIKKY" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1E8DKi0__W78wWPfyMinEXj1U2puYzf8q" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1SKB2oQRh0N8HgPIbOu1mqTEWH9Gybfut" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1AQ5piHUVwx7gTOaS2VzF0LUYiOsP19jZ" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1u17PFBgAmXlPXhSehHwzs5bGmwn1KN3P" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1Zu-4GGUpEPz04pS2HkV8jqz97b7c6wWm" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1kJDBa824ieXNBsWmnD0Lkjem_o1pJo5L" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1egv75qlCmlwIpmcwBzADh8KRSCmBjF1F" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1GSfu11pPFyOAd-hntL7gnbtkXKGTznXm" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1_C2tM1AIgNsPZ1iMVYXZltn3U-t7fS7G" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1xHRBnYoXQTzHQXCRYLmgDOZeq_Gr6__H" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/19Nuk73LrVZk8RLG4unKUJ9-DbZjhcyhL" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1eaK-lLysVRDBxmK0URHVNuDmFtFAY-LX" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1LzYs1SNfTjtCdkqOtHWSv1y6NQ9yi1Kq" onclick="openImg(this.src)">
+<img src="https://lh3.googleusercontent.com/d/1DcmT9_IWZKvGvayI2umTKxH03bQ2ysL0" onclick="openImg(this.src)">
+
+
+</div>
+
+<span class="carousel-btn carousel-next" onclick="move(1)">❯</span>
+
+</div>
+
+
+</section>
+
+<section>
+<h2>Góc Phim & Nhạc Không Gian</h2>
+
+<div style="background:#1a1e2e;height:200px;display:flex;align-items:center;justify-content:center;border-radius:10px;border:1px dashed #444;">
+<span style="color:#777;">[Không có gì]</span>
+</div>
+
+</section>
+
+<section>
+<h2>Góc Bình Luận</h2>
+
+<form>
+<input type="text" placeholder="Tên người gửi">
+<textarea rows="3" placeholder="Để lại lời nhắn của bạn gửi vào vũ trụ..."></textarea>
+<button type="submit">Gửi thông điệp</button>
+</form>
+
+</section>
+
+</main>
+
+<footer>
+<div><strong>Tài liệu tham khảo:</strong> NASA</div>
+<div><strong>Thực hiện:</strong> Quốc Anh, Gia Bảo 12c3  </div>
+<div>Email:<strong> quocanh360670666666@gmail.com</strong></div>
+<div><strong>Cập nhật lần cuối:</strong> 07/03/2026</div>
+
+</footer>
+
+<!-- LIGHTBOX -->
+
+<div class="lightbox" id="lightbox">
+<span class="nav prev" onclick="prevImg()">❮</span>
+<img id="lightboxImg">
+<span class="nav next" onclick="nextImg()">❯</span>
+</div>
+
+
+<script>
+
+/* SAO BĂNG */
+
+for(let i=0;i<80;i++){
+
+let star=document.createElement("div")
+
+star.className="star"
+
+star.style.top=Math.random()*100+"%"
+
+star.style.left=Math.random()*100+"%"
+
+star.style.animationDuration=(Math.random()*8+6)+"s"
+
+document.getElementById("stars").appendChild(star)
+
+}
+
+/* lightbox( viền phát sáng )  */
+
+let imgs=document.querySelectorAll(".gallery img")
+let currentIndex=0
+
+function openImg(src){
+
+let lightbox=document.getElementById("lightbox")
+let img=document.getElementById("lightboxImg")
+
+imgs.forEach((i,index)=>{
+if(i.src===src) currentIndex=index
+})
+
+img.src=src
+lightbox.style.display="flex"
+
+setTimeout(()=>{
+lightbox.classList.add("show")
+},10)
+
+}
+
+function closeImg(){
+
+let lightbox=document.getElementById("lightbox")
+lightbox.style.display="none"
+lightbox.classList.remove("show")
+
+}
+
+function nextImg(){
+
+currentIndex++
+if(currentIndex>=imgs.length) currentIndex=0
+
+document.getElementById("lightboxImg").src=imgs[currentIndex].src
+
+}
+
+function prevImg(){
+
+currentIndex--
+if(currentIndex<0) currentIndex=imgs.length-1
+
+document.getElementById("lightboxImg").src=imgs[currentIndex].src
+
+}
+
+/* click ngoài ảnh để đóng ảnh đang mở */
+
+document.getElementById("lightbox").addEventListener("click",function(e){
+
+if(e.target.id==="lightbox"){
+closeImg()
+}
+
+})
+
+/* VUỐT ĐIỆN THOẠI */
+
+let startX=0
+
+document.getElementById("lightbox").addEventListener("touchstart",(e)=>{
+startX=e.touches[0].clientX
+})
+
+document.getElementById("lightbox").addEventListener("touchend",(e)=>{
+
+let endX=e.changedTouches[0].clientX
+
+if(startX-endX>50){nextImg()}
+
+if(endX-startX>50){prevImg()}
+
+})
+
+
+/* nhạc nền */
+let music = document.getElementById("bgMusic")
+
+music.volume = 0
+
+function fadeIn(){
+
+music.volume = 0
+music.play()
+
+
+/* âm lượng tăng dần và giảm dần sau khi on/off */
+let fade = setInterval(function(){
+
+if(music.volume < 0.4){
+music.volume += 0.02
+}else{
+clearInterval(fade)
+}
+
+},100)
+
+}
+
+function fadeOut(){
+
+let fade = setInterval(function(){
+
+if(music.volume > 0.02){
+music.volume -= 0.02
+}else{
+music.pause()
+clearInterval(fade)
+}
+
+},100)
+
+}
+
+function toggleMusic(){
+
+if(music.paused){
+fadeIn()
+}else{
+fadeOut()
+}
+
+}
+
+/* click bất kì để phát nhạc */
+
+document.body.addEventListener("click",function(){
+
+if(music.paused){
+fadeIn()
+}
+
+},{once:true})
+
+
+/* CAROUSEL 3D */
+
+let carousel = document.getElementById("carousel")
+let slides = carousel.querySelectorAll("img")
+
+let current = 0
+
+function updateCarousel(){
+
+slides.forEach(img=>{
+img.className=""
+})
+
+let total = slides.length
+
+slides[current].classList.add("center")
+
+slides[(current-1+total)%total].classList.add("left")
+slides[(current+1)%total].classList.add("right")
+
+slides[(current-2+total)%total].classList.add("far-left")
+slides[(current+2)%total].classList.add("far-right")
+
+}
+
+function move(step){
+
+current += step
+
+if(current >= slides.length) current = 0
+if(current < 0) current = slides.length-1
+
+updateCarousel()
+
+}
+
+/* AUTO CAROUSEL THÔNG MINH */
+
+let autoTimer
+let resumeTimer
+
+function startAuto(){
+autoTimer = setInterval(()=>{
+move(1)
+},4000)
+}
+
+function stopAuto(){
+clearInterval(autoTimer)
+}
+
+function userAction(){
+
+stopAuto()
+
+clearTimeout(resumeTimer)
+
+resumeTimer = setTimeout(()=>{
+startAuto()
+},2000)
+
+}
+
+/* sửa hàm move */
+
+let oldMove = move
+
+move = function(step){
+
+oldMove(step)
+
+userAction()
+
+}
+
+/* bắt đầu auto */
+
+updateCarousel()
+startAuto()
+</script>
+
+</body>
+</html>
